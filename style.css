@@ -1,0 +1,66 @@
+* {
+    margin: 0;
+    padding: 0;
+  }
+  
+  .top-bar {
+    background: #f7ffe7;
+    color: #013838;
+    padding: 1rem;
+    box-shadow:0 5px 40px rgb(0, 0, 0, 0.2);
+    z-index: 1000;
+    position: sticky;
+  }
+  
+  .btn {
+    background: #013838;
+    color: #fff;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 0.7rem 2rem;
+  }
+  
+  .btn:hover {
+    opacity: 0.9;
+  }
+  
+  .page-info {
+    margin-left: 1rem;
+  }
+  
+  .error {
+    background: orangered;
+    color: #fff;
+    padding: 1rem;
+  }
+
+.fullscreen-button {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  z-index: 1000;
+}
+
+#fullscreen-toggle {
+  background-color: #013838;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#fullscreen-toggle:hover {
+  background-color: #01383871;
+}
+
+#pdf-render {
+  width: auto; /* Set the width to 100% of the viewport width */
+  height: auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -30%); /* Center the div precisely */
+  z-index: 1;
+}

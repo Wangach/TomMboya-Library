@@ -1,0 +1,51 @@
+{
+    "Body": {
+        "stkCallback": {
+            "MerchantRequestID": "92644-142049456-1",
+            "CheckoutRequestID": "ws_CO_12102023100726368769635821",
+            "ResultCode": 1032,
+            "ResultDesc": "Request cancelled by user"
+        }
+    }
+}{
+    "Body": {
+        "stkCallback": {
+            "MerchantRequestID": "11545-8525953-1",
+            "CheckoutRequestID": "ws_CO_12102023100811557769635821",
+            "ResultCode": 0,
+            "ResultDesc": "The service request is processed successfully.",
+            "CallbackMetadata": {
+                "Item": [
+                    {
+                        "Name": "Amount",
+                        "Value": 1.00
+                    },
+                    {
+                        "Name": "MpesaReceiptNumber",
+                        "Value": "RJC09XWCT0"
+                    },
+                    {
+                        "Name": "Balance"
+                    },
+                    {
+                        "Name": "TransactionDate",
+                        "Value": 20231012100537
+                    },
+                    {
+                        "Name": "PhoneNumber",
+                        "Value": 254769635821
+                    }
+                ]
+            }
+        }
+    }
+}{
+    "Body": {
+        "stkCallback": {
+            "MerchantRequestID": "92638-142111123-1",
+            "CheckoutRequestID": "ws_CO_12102023103639751769635821",
+            "ResultCode": 1032,
+            "ResultDesc": "Request cancelled by user"
+        }
+    }
+}{"Body":{"stkCallback":{"MerchantRequestID":"15762-11300008-1","CheckoutRequestID":"ws_CO_13102023120943169746731296","ResultCode":2001,"ResultDesc":"The initiator information is invalid."}}}
