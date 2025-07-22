@@ -25,8 +25,6 @@ if (isset($_GET['order_id'])) {
   echo 'Order ID not provided.';
 }
 
-$consumerKey = 'DMX8bPISczshYOOUZH9LzrNhrA8wzNzc';
-$consumerSecret = 'hnXKaMnIZ2FMmgpi';
 
 $headers = ['Content-Type:application/json; charset=utf8'];
 
@@ -35,7 +33,7 @@ $curl = curl_init($access_token_url);
 curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
 curl_setopt($curl, CURLOPT_RETURNTRANSFER, TRUE);
 curl_setopt($curl, CURLOPT_HEADER, FALSE);
-curl_setopt($curl, CURLOPT_USERPWD, $consumerKey.':'.$consumerSecret);
+curl_setopt($curl, CURLOPT_USERPWD, CONSUMER_KEY.':'.CONSUMER_SECRET);
 $result = curl_exec($curl);
 $status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
 $result = json_decode($result);
@@ -49,16 +47,14 @@ curl_close($curl);
 
 $initiate_url = 'https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest';
 
-$BusinessShortCode ='174379';
 $Timestamp = date('YmdHis'); 
 $PartyA = $PartyA; // This is your phone number, 
-$CallBackURL = 'https://sparrow-accurate-dingo.ngrok-free.app/Tom%20Mboya%20Library/callback_url.php?order_id=' .$order_id; 
+$CallBackURL = 'https://ce30ccd2fb7f.ngrok-free.app/TomMboya-Library-2.0/callback_url.php?order_id=' .$order_id; 
 $AccountReference = $PartyA  . ' For Order No - ' .$order_id;
 $TransactionDesc = 'Order No - ' ;
 $Amount = $price;
-$Passkey = 'bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919';
 
-$Password = base64_encode($BusinessShortCode.$Passkey.$Timestamp);
+$Password = base64_encode(BUSINESS_SHORT_CODE.PASSKEY.$Timestamp);
 
 
 # header for stk push
@@ -71,17 +67,17 @@ curl_setopt($curl, CURLOPT_HTTPHEADER, $stkheader); //setting custom header
 
 $curl_post_data = array(
   //Fill in the request parameters with valid values
-  'BusinessShortCode' => $BusinessShortCode,
+  'BusinessShortCode' => BUSINESS_SHORT_CODE,
   'Password' => $Password,
   'Timestamp' => $Timestamp,
-  'TransactionType' => 'CustomerPayBillOnline',
+  'TransactionType' => TRANSACTION_TYPE,
   'Amount' => $price,
   'PartyA' => $PartyA,
-  'PartyB' => $BusinessShortCode,
+  'PartyB' => BUSINESS_SHORT_CODE,
   'PhoneNumber' => $PartyA,
   'CallBackURL' => $CallBackURL,
-  'AccountReference' => $AccountReference,
-  'TransactionDesc' => $TransactionDesc
+  'AccountReference' => ACCOUNT_REFERENCE,
+  'TransactionDesc' => TRANSACTION_DESC
 );
 
 $data_string = json_encode($curl_post_data);

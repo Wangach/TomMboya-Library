@@ -1,44 +1,18 @@
 <?php
-
-include 'config.php';
+include 'accessToken.php';
 
 $donorphonenumber = mysqli_real_escape_string($conn, $_POST['donorphonenumber']);
 $donoramount = mysqli_real_escape_string($conn, $_POST['donoramount']);
 
-$consumerKey = 'DMX8bPISczshYOOUZH9LzrNhrA8wzNzc';
-$consumerSecret = 'hnXKaMnIZ2FMmgpi';
-
 $headers = ['Content-Type:application/json; charset=utf8'];
-
-$access_token_url = 'https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials';
-$curl = curl_init($access_token_url);
-curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
-curl_setopt($curl, CURLOPT_RETURNTRANSFER, TRUE);
-curl_setopt($curl, CURLOPT_HEADER, FALSE);
-curl_setopt($curl, CURLOPT_USERPWD, $consumerKey.':'.$consumerSecret);
-$result = curl_exec($curl);
-$status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
-$result = json_decode($result);
-$access_token = $result->access_token;
-/*echo $access_token;*/
-curl_close($curl);
-
-// Get the price and phone_no from the URL parameters
-
-
 
 $initiate_url = 'https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest';
 
-$BusinessShortCode ='174379';
 $Timestamp = date('YmdHis'); 
 $PartyA = $donorphonenumber; // This is your phone number, 
-$CallBackURL = 'https://sparrow-accurate-dingo.ngrok-free.app/Tom%20Mboya%20Library/donatecallback.php'; 
-$AccountReference = 'Donation to Tom Mboya Library';
-$TransactionDesc = 'Order No - ' ;
 $Amount = $donoramount;
-$Passkey = 'bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919';
 
-$Password = base64_encode($BusinessShortCode.$Passkey.$Timestamp);
+$Password = base64_encode(BUSINESS_SHORT_CODE.PASSKEY.$Timestamp);
 
 
 # header for stk push
@@ -51,17 +25,17 @@ curl_setopt($curl, CURLOPT_HTTPHEADER, $stkheader); //setting custom header
 
 $curl_post_data = array(
   //Fill in the request parameters with valid values
-  'BusinessShortCode' => $BusinessShortCode,
+  'BusinessShortCode' => BUSINESS_SHORT_CODE,
   'Password' => $Password,
   'Timestamp' => $Timestamp,
-  'TransactionType' => 'CustomerPayBillOnline',
+  'TransactionType' => TRANSACTION_TYPE,
   'Amount' => $donoramount,
   'PartyA' => $donorphonenumber,
-  'PartyB' => $BusinessShortCode,
+  'PartyB' => BUSINESS_SHORT_CODE,
   'PhoneNumber' => $donorphonenumber,
-  'CallBackURL' => $CallBackURL,
-  'AccountReference' => $AccountReference,
-  'TransactionDesc' => $TransactionDesc
+  'CallBackURL' => CALLBACK_URL,
+  'AccountReference' => ACCOUNT_REFERENCE,
+  'TransactionDesc' => TRANSACTION_DESC
 );
 
 $data_string = json_encode($curl_post_data);
@@ -74,7 +48,7 @@ print_r($curl_response);
 echo $curl_response;
 */
 // Close the cURL session
-curl_close($curl);
+// curl_close($curl);
 
 $response = array();
 
@@ -92,7 +66,7 @@ if (strpos($curl_response, 'Unauthorized') !== false) {
   } else {
     // Payment request successful
     $response['success'] = true;
-    $response['message'] = "Payment successfully initialized.";
+    $response['message'] = "Payment successfully initialized...";
   }
 }
 

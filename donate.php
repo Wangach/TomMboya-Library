@@ -190,13 +190,14 @@ include 'config.php';
                 $('#donate-now').css('cursor', 'pointer');
             }
 
-            function showMpesaResponse() {
+            function showMpesaResponse(res) {
                 document.querySelector('#payment-response').style.display = 'block';
+                document.querySelector('#payment-response').innerHTML = response;
             }
 
-            function showMpesaWarning() {
-                document.querySelector('#payment-warning').style.display = 'block';
-                document.querySelector('#payment-response').style.display = 'none';
+            function showMpesaWarning(res) {
+                document.getElementById('payment-warning').style.display = 'block';
+                document.getElementById('payment-warning').innerHTML = res;
             }
             // Handle form submission when the "Pay Now" button is clicked
             $('#donate-form').on('submit', function(e) {
@@ -217,11 +218,11 @@ include 'config.php';
                     success: function(response) {
                         // Handle the response here
                         if (response.success) {
-                            showMpesaResponse();
-                            $('#payment-response').html('Payment successfully initialized.');
+                            showMpesaResponse(response.message);
+                            // document.querySelector('#payment-response').html('Payment successfully initialized.');
                         } else {
-                            showMpesaWarning();
-                            $('#payment-warning').html(response.message);
+                            showMpesaWarning(response.message);
+                            // $('#payment-warning').html();
                         }
                         // Enable the "Pay Now" button and restore cursor style
                         enablePayButton();
